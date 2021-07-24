@@ -7,8 +7,12 @@ import { GetStaticProps } from 'next';
 
 import { api } from '../services/api';
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString';
+import { LatestEpisodes } from '../components/LatestEpisodes';
 
-type Episode = {
+import styles from "./home.module.scss";
+import { AllEpisodes } from '../components/AllEpisodes';
+
+type EpisodeAPI = {
   id: string,      
   title: string,
   members:string,
@@ -22,11 +26,24 @@ type Episode = {
   }
 }
 
+type Episode = {
+  id: string,      
+  title: string,
+  thumbnail: string,
+  members:string,
+  publishedAt: string,
+  description: ReactNode,
+  duration: number
+  durationAsString: string,
+  url: string,
+}
+
 type HomeProps = {
-  episodes: Episode[]
+  allEpisodes: Episode[],
+  lastestEpisodes: Episode[]
 }; 
 
-export default function Home({episodes}: HomeProps) {
+export default function Home({allEpisodes, lastestEpisodes}: HomeProps) {
   return (
     <>
       <Head>
@@ -35,7 +52,11 @@ export default function Home({episodes}: HomeProps) {
         <link rel="icon" href="/favicon.png" />
       </Head>
 
-      <div>{JSON.stringify(episodes)}</div>
+      <div className={styles.content}>
+        <LatestEpisodes data={lastestEpisodes} />
+        <AllEpisodes data={allEpisodes} />
+      </div>
+
     </>
   );
 }
@@ -49,7 +70,7 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   });
 
-  const episodes = data.map(( {id, title, thumbnail, members,published_at, description, file: {duration, url}}: Episode )=> ({
+  const episodes = data.map(({ id, title, thumbnail, members, published_at, description, file: {duration, url}}: EpisodeAPI )=> ({
     id,
     title,
     thumbnail,
@@ -61,9 +82,12 @@ export const getStaticProps: GetStaticProps = async () => {
     url,
   }));
 
+  const lastestEpisodes = episodes.slice(0, 2);
+
   return {
     props: {
-      episodes
+      allEpisodes: episodes,
+      lastestEpisodes
     },
     revalidate: 60 * 60 * 8, // 8 hours
   };
