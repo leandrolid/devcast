@@ -9,7 +9,7 @@ export function Header() {
 
   return (
     <header className={styles.container}>
-      <Image width="100%" height="100%" src="/logo.svg" alt="Devcast logo" />
+      <Image width="200px" height="100%" src="/logo.svg" alt="Devcast logo" />
       <p>O melhor para você ouvir. Sempre!</p>
       <span>{currentDate}</span>
     </header>

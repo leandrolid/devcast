@@ -1,5 +1,4 @@
-import Head from 'next/head'
-import { Header } from '../components/Header'
+import Head from 'next/head';
 
 export default function Home() {
   return (
@@ -9,8 +8,6 @@ export default function Home() {
         <meta name="description" content="Hear your favorite podcasts" />
         <link rel="icon" href="/favicon.png" />
       </Head>
-
-      <Header />
     </>
-  )
+  );
 }
