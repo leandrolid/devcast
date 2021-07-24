@@ -1,3 +1,6 @@
 {
+  "rules": {
+    "semi":"warn"
+  },
   "extends": ["next", "next/core-web-vitals"]
 }

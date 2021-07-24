@@ -21,9 +21,10 @@
   --purple-800: #6F48C9;
 }
 
-html, body, input, textarea, button {
+body, input, textarea, button {
   font: 500 1rem Inter, sans-serif;
-  color: var(--gray-50);
+  background-color: var(--gray-50);
+  color: var(--gray-500);
 }
 
 button {
