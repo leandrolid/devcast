@@ -20,7 +20,8 @@ type PlayserContextData = {
   currentEpisodeIndex: number,
   isPlaying: boolean,
   play: (episodeList: Episode[], index: number) => void,
-  handleNext: () => void,
+  handlePlayNext: () => void,
+  handPlayPrevious: () => void,
   togglePlayButton: () => void,
   togglePlayingState: (value: boolean) => void,
 }
@@ -42,9 +43,12 @@ export function PlayerContextProvider({ children }: PlayerProviderProps) {
     setIsPlaying(!isPlaying);
   }
   
-  function handleNext() {
-    // const currentIndex = episodes.indexOf(currentEpisodeIndex);
-    setCurrentEpisodeIndex(currentEpisodeIndex + 1);
+  function handlePlayNext() {
+    if (currentEpisodeIndex < (episodes.length -1) ) setCurrentEpisodeIndex(currentEpisodeIndex + 1);
+  }
+
+  function handPlayPrevious() {
+    if (currentEpisodeIndex > 0) setCurrentEpisodeIndex(currentEpisodeIndex - 1);
   }
 
   function togglePlayingState(value:boolean) {
@@ -56,7 +60,8 @@ export function PlayerContextProvider({ children }: PlayerProviderProps) {
     currentEpisodeIndex,
     isPlaying,
     play,
-    handleNext,
+    handlePlayNext,
+    handPlayPrevious,
     togglePlayButton,
     togglePlayingState
   }}
