@@ -11,7 +11,9 @@ export function Header() {
   return (
     <header className={styles.container}>
       <Link href="/" passHref>
-        <Image width="200px" height="100%" src="/logo.svg" alt="Devcast logo" />
+        <a>
+          <Image width="200px" height="100%" src="/logo.svg" alt="Devcast logo" />
+        </a>
       </Link>
       <p>O melhor para você ouvir. Sempre!</p>
       <span>{currentDate}</span>

@@ -47,9 +47,9 @@ export default function Home({allEpisodes, lastestEpisodes}: HomeProps) {
       <Head>
         <title>Devcast</title>
         <meta name="description" content="Hear your favorite podcasts" />
-        <link rel="icon" href="/favicon.png" />
+        <link rel="shortcut icon" href="/favicon.png" type="image/x-png" />
       </Head>
-
+      
       <div className={styles.content}>
         <LatestEpisodes data={lastestEpisodes} />
         <AllEpisodes data={allEpisodes} />

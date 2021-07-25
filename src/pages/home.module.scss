@@ -1,6 +1,8 @@
 .content {
   padding: 0 4rem;
   height: calc(100vh - 6.5rem);
+  max-width: calc(100vw - 26.5rem);
+
   overflow-x: hidden;
   
   h2 {

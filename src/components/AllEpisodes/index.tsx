@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
+import { usePlayerContext } from '../../contexts/PlayerContext';
 
 import styles from './allEpisodes.module.scss';
 
@@ -21,6 +22,7 @@ type AllEpisodesProps = {
 }; 
 
 export function AllEpisodes({data}: AllEpisodesProps) {
+  const { play } = usePlayerContext();  
 
   return(
     <section className={styles.container}>
@@ -38,7 +40,7 @@ export function AllEpisodes({data}: AllEpisodesProps) {
         </thead>
 
         <tbody>
-        {data.map((episode)=> {          
+        {data.map((episode, index)=> {          
           return (
             <tr key={episode.id} className={styles.details}>
 
@@ -71,7 +73,7 @@ export function AllEpisodes({data}: AllEpisodesProps) {
               </td>
 
               <td>
-              <button type="button">
+              <button type="button" onClick={() => play(data, index)}>
                 <img src="/play-green.svg" alt="Tocar episódio" />
               </button>
               </td>

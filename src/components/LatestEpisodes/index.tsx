@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ReactNode } from 'react';
+import { usePlayerContext } from '../../contexts/PlayerContext';
 
 import styles from './latestEpisodes.module.scss';
 
@@ -21,12 +22,13 @@ type LatestEpisodesProps = {
 }; 
 
 export function LatestEpisodes({data}: LatestEpisodesProps) {
+  const { play } = usePlayerContext();
 
   return(
     <section className={styles.container}>
       <h2>Últimos Lançamentos</h2>
       <ul>
-        {data.map((episode)=> {          
+        {data.map((episode, index) => {          
           return (
             <li key={episode.id}>
               <Image
@@ -45,7 +47,7 @@ export function LatestEpisodes({data}: LatestEpisodesProps) {
                 <span>{episode.durationAsString}</span>
               </div>
 
-              <button>
+              <button type="button" onClick={() => play(data, index)}>
                 <img src="/play-green.svg" alt="Tocar episódio" />
               </button>
             </li>
