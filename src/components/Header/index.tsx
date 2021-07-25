@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import format from 'date-fns/format';
 import ptBR from 'date-fns/locale/pt-BR';
 
@@ -9,7 +10,9 @@ export function Header() {
 
   return (
     <header className={styles.container}>
-      <Image width="200px" height="100%" src="/logo.svg" alt="Devcast logo" />
+      <Link href="/" passHref>
+        <Image width="200px" height="100%" src="/logo.svg" alt="Devcast logo" />
+      </Link>
       <p>O melhor para você ouvir. Sempre!</p>
       <span>{currentDate}</span>
     </header>

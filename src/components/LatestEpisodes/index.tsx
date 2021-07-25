@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from 'next/image';
+import Link from 'next/link';
 import { ReactNode } from 'react';
 
 import styles from './latestEpisodes.module.scss';
@@ -10,7 +11,6 @@ type Episode = {
   thumbnail: string,
   members:string,
   publishedAt: string,
-  description: ReactNode,
   duration: number
   durationAsString: string,
   url: string,
@@ -37,7 +37,9 @@ export function LatestEpisodes({data}: LatestEpisodesProps) {
               objectFit="cover"
               />
               <div className={styles.details}>
-                <a href="">{episode.title}</a>
+                <Link href={`/episodes/${episode.id}`}>
+                  <a>{episode.title}</a>
+                </Link>
                 <p>{episode.members}</p>
                 <span>{episode.publishedAt}</span>
                 <span>{episode.durationAsString}</span>

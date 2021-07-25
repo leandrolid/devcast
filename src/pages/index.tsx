@@ -18,7 +18,6 @@ type EpisodeAPI = {
   members:string,
   published_at: string,
   thumbnail: string,
-  description: ReactNode,
   file: {
     url: string,
     type: string,
@@ -32,7 +31,6 @@ type Episode = {
   thumbnail: string,
   members:string,
   publishedAt: string,
-  description: ReactNode,
   duration: number
   durationAsString: string,
   url: string,
@@ -70,13 +68,12 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   });
 
-  const episodes = data.map(({ id, title, thumbnail, members, published_at, description, file: {duration, url}}: EpisodeAPI )=> ({
+  const episodes = data.map(({ id, title, thumbnail, members, published_at, file: {duration, url}}: EpisodeAPI )=> ({
     id,
     title,
     thumbnail,
     members,
     publishedAt: format(parseISO(published_at), 'd MMM yy', { locale: ptBR}),
-    description,
     duration: Number(duration),
     durationAsString: convertDurationToTimeString(Number(duration)),
     url,

@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from 'next/image';
-import Link from "next/link";
+import Link from 'next/link';
 import React, { ReactNode } from 'react';
 
 import styles from './allEpisodes.module.scss';
@@ -11,7 +11,6 @@ type Episode = {
   thumbnail: string,
   members:string,
   publishedAt: string,
-  description: ReactNode,
   duration: number
   durationAsString: string,
   url: string,
