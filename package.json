@@ -9,7 +9,8 @@
     "build": "npm-run-all -p -r build:*",
     "build:server": "json-server server.json -p 3333",
     "build:next": "next build",
-    "start": "next start",
+    "initial": "next start",
+    "start": "npm-run-all -p dev:server initial",
     "lint": "next lint"
   },
   "dependencies": {
