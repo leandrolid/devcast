@@ -19,11 +19,13 @@ type PlayserContextData = {
   episodes: Episode[],
   currentEpisodeIndex: number,
   isPlaying: boolean,
+  isShuffling: boolean,
   play: (episodeList: Episode[], index: number) => void,
   handlePlayNext: () => void,
   handPlayPrevious: () => void,
   togglePlayButton: () => void,
   togglePlayingState: (value: boolean) => void,
+  toggleShuffleState: () => void,
 }
 
 export const PlayerContext = createContext({} as PlayserContextData);
@@ -32,6 +34,7 @@ export function PlayerContextProvider({ children }: PlayerProviderProps) {
   const [ episodes, setEpisodes ] = useState([]);
   const [ currentEpisodeIndex, setCurrentEpisodeIndex ] = useState(0);
   const [ isPlaying, setIsPlaying ] = useState(false);
+  const [ isShuffling, setIsShuffling ] = useState(false);
 
   function play(episodeList, index) {
     setEpisodes(episodeList);
@@ -44,7 +47,12 @@ export function PlayerContextProvider({ children }: PlayerProviderProps) {
   }
   
   function handlePlayNext() {
-    if (currentEpisodeIndex < (episodes.length -1) ) setCurrentEpisodeIndex(currentEpisodeIndex + 1);
+    if (isShuffling) {
+      const index = Math.floor(Math.random() * ( episodes.length - 1 ));
+      setCurrentEpisodeIndex(index);
+    } else if (currentEpisodeIndex < (episodes.length -1) ) {
+      setCurrentEpisodeIndex(currentEpisodeIndex + 1);
+    };
   }
 
   function handPlayPrevious() {
@@ -55,15 +63,22 @@ export function PlayerContextProvider({ children }: PlayerProviderProps) {
     setIsPlaying(value);
   }
 
+
+  function toggleShuffleState() {
+    setIsShuffling(!isShuffling);
+  }
+
   return <PlayerContext.Provider value={{
     episodes,
     currentEpisodeIndex,
     isPlaying,
+    isShuffling,
     play,
     handlePlayNext,
     handPlayPrevious,
     togglePlayButton,
-    togglePlayingState
+    togglePlayingState,
+    toggleShuffleState
   }}
   >
     {children}

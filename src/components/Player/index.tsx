@@ -14,11 +14,13 @@ export function Player() {
     episodes,
     currentEpisodeIndex,
     isPlaying,
+    isShuffling,
     handlePlayNext,
     handPlayPrevious,
     togglePlayButton,
     togglePlayingState,
-    play
+    toggleShuffleState,
+    // play
   } = usePlayerContext();
 
   const episode = episodes[currentEpisodeIndex];
@@ -39,6 +41,13 @@ export function Player() {
   
   const [ progress, setProgress ] = useState(0);
   const [ progressInTimeString, setProgressInTimeString ] = useState('00:00:00');
+
+  function playNext() {
+    handlePlayNext();
+    setProgress(0);
+    audioRef.current.currentTime = 0;
+    audioRef.current.play();
+  }
   
   function setProgressListener() {
     audioRef.current.currentTime = 0;
@@ -46,11 +55,10 @@ export function Player() {
     audioRef.current.addEventListener('timeupdate', () => {
       const time = Math.floor(audioRef.current.currentTime);
       setProgress(time);
-
-      if (time + 1 === episode.duration) {
-        handlePlayNext();
-        audioRef.current.play();
-      };
+      
+      // if (!isReplaying && (time + 1) >= episode.duration) { 
+      //   playNext();
+      // }
     });
   }
 
@@ -58,6 +66,12 @@ export function Player() {
     const timeString = convertDurationToTimeString(progress);
     setProgressInTimeString(timeString);
   },[progress, progressInTimeString]);
+
+  const [ isReplaying, setIsReplaying ] = useState(false);
+
+  function toggleReplayState() {
+    setIsReplaying(!isReplaying);
+  }
 
   function handleSliderChange(amount: number) {
     audioRef.current.currentTime = amount;
@@ -112,6 +126,8 @@ export function Player() {
                 onPlay={() => togglePlayingState(true)}
                 onPause={() => togglePlayingState(false)}
                 onLoadedMetadata={setProgressListener}
+                loop={isReplaying}
+                onEnded={playNext}
                 />
               </>
             ) : (
@@ -122,13 +138,18 @@ export function Player() {
         </div>
 
         <div className={styles.controls}>
-          <button type="button" disabled={ !episode }>
+          <button
+          type="button"
+          disabled={ !episode }
+          className={ isShuffling ? styles.active : '' }
+          onClick={toggleShuffleState}
+          >
             <img src="/shuffle.svg" alt="Embaralhar"/>
           </button>
           <button
           type="button"
           disabled={ !episode || (currentEpisodeIndex -1) < 0 }
-          style={(currentEpisodeIndex -1) < 0 ? { opacity: 0.5 } : {}}
+          style={(currentEpisodeIndex -1) < 0 && episode ? { opacity: 0.5 } : {}}
           onClick={() => handPlayPrevious()}
           >
             <img src="/play-previous.svg" alt="Tocar anterior"/>
@@ -161,7 +182,12 @@ export function Player() {
             <img src="/play-next.svg" alt="Tocar próxima"
             />
           </button>
-          <button type="button" disabled={ !episode }>
+          <button
+          type="button"
+          disabled={ !episode }
+          className={ isReplaying ? styles.active : '' }
+          onClick={toggleReplayState}
+          >
             <img src="/repeat.svg" alt="Repetir"/>
           </button>
         </div>

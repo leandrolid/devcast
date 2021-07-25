@@ -57,7 +57,7 @@
 
   strong {
     display: block;
-    margin-top: 2rem;
+    margin-top: 1rem;
     font: 600 1.25rem Lexend, sans-serif;
     line-height: 1.75rem;
   }
@@ -124,6 +124,14 @@
 
     &:hover:not(:disabled){
       filter: brightness(0.8);
+    }
+
+    &.active {
+      filter: invert(0.35) sepia(1) saturate(3) hue-rotate(100deg);
+    }
+
+    &.active:hover:not(:disabled) {
+      filter: brightness(0.6) invert(0.35) sepia(1) saturate(3) hue-rotate(100deg);
     }
   }
 }

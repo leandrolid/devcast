@@ -11,6 +11,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { ReactNode } from 'react';
 
 import styles from './episode.module.scss';
+import { usePlayerContext } from '../../contexts/PlayerContext';
 
 type Episode = {
   id: string,      
@@ -45,6 +46,7 @@ type CurrentEpisodeProps = {
 }
 
 export default function CurrentEpisode({episode}: CurrentEpisodeProps) {
+  const { play } = usePlayerContext();
 
   return(
     <section className={styles.main}>
@@ -63,7 +65,7 @@ export default function CurrentEpisode({episode}: CurrentEpisodeProps) {
           alt={episode.title}
           objectFit="cover" />
 
-          <button type="button">
+          <button type="button" onClick={() => play([episode], 0)}>
             <img src="/play.svg" alt="Tocar atual" />
           </button>
         </div>
