@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from 'next/image';
-import { ReactNode } from 'react';
+import Link from "next/link";
+import React, { ReactNode } from 'react';
 
 import styles from './allEpisodes.module.scss';
 
@@ -29,20 +30,20 @@ export function AllEpisodes({data}: AllEpisodesProps) {
       <table cellSpacing={0}>
         <thead>
           <tr>
-            <th></th>
-            <th>Podcast</th>
+            <th colSpan={2}>Podcast</th>
             <th>Integrantes</th>
             <th>Data</th>
             <th>Duração</th>
-            <th></th>
+            <th>Tocar</th>
           </tr>
         </thead>
+
         <tbody>
         {data.map((episode)=> {          
           return (
             <tr key={episode.id} className={styles.details}>
 
-              <td>
+              <td className={styles.image}>
                 <Image
                 width={120}
                 height={120}
@@ -53,23 +54,25 @@ export function AllEpisodes({data}: AllEpisodesProps) {
               </td>
 
               <td>
-                <a href="">{episode.title}</a>
+                <Link href={`/episodes/${episode.id}`} >
+                  <a>{episode.title}</a>
+                </Link>
               </td>
 
               <td>
-                <p>{episode.members}</p>
+                {episode.members}
               </td>
 
-              <td>
-                <span>{episode.publishedAt}</span>
+              <td className={styles.date}>
+                {episode.publishedAt}
               </td>
 
               <td >
-                <span>{episode.durationAsString}</span>
+                {episode.durationAsString}
               </td>
 
               <td>
-              <button>
+              <button type="button">
                 <img src="/play-green.svg" alt="Tocar episódio" />
               </button>
               </td>
