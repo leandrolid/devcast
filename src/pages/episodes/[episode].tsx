@@ -79,7 +79,7 @@ export default function CurrentEpisode({episode}: CurrentEpisodeProps) {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [],
     fallback: 'blocking'

@@ -6,7 +6,9 @@
     "dev": "npm-run-all -p dev:*",
     "dev:server": "json-server server.json -w 750 -p 3333",
     "dev:app": "next dev",
-    "build": "json-server server.json -w 750 -p 3333 | next build",
+    "build": "npm-run-all -p -r build:*",
+    "build:server": "json-server server.json -p 3333",
+    "build:next": "next build",
     "start": "next start",
     "lint": "next lint"
   },
