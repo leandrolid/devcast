@@ -1,11 +1,13 @@
 .wrapper {
   display: flex;
   // grid-template-columns: 1fr 26.5rem;
-  height: 100vh;
+  // height: 100vh;
+  // height: calc(100vh + 6.5rem);
   overflow: hidden;
 
   main {
     width: 100vw;
+    // height: calc(100vh + 6.5rem);
     flex: 1;
     // overflow-x: hidden;
     // overflow-y: auto;
