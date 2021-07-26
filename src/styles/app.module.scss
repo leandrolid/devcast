@@ -1,12 +1,22 @@
 .wrapper {
   display: flex;
   // grid-template-columns: 1fr 26.5rem;
-  max-height: 100vh;
+  height: 100vh;
   overflow: hidden;
 
   main {
+    width: 100vw;
     flex: 1;
     // overflow-x: hidden;
     // overflow-y: auto;
+    
+  
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .wrapper {
+    position: relative;
+    width: 100vw;
   }
 }

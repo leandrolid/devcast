@@ -15,11 +15,13 @@ export function Player() {
     currentEpisodeIndex,
     isPlaying,
     isShuffling,
+    playerPosition,
     handlePlayNext,
     handPlayPrevious,
     togglePlayButton,
     togglePlayingState,
     toggleShuffleState,
+    togglePlayerPosition
     // play
   } = usePlayerContext();
 
@@ -55,10 +57,6 @@ export function Player() {
     audioRef.current.addEventListener('timeupdate', () => {
       const time = Math.floor(audioRef.current.currentTime);
       setProgress(time);
-      
-      // if (!isReplaying && (time + 1) >= episode.duration) { 
-      //   playNext();
-      // }
     });
   }
 
@@ -79,7 +77,13 @@ export function Player() {
   }
   
   return (
-    <div className={styles.container}>
+    <div className={styles.container}
+    // style={{ translate: `${playerPosition} 0` }}
+    style={{ transform: typeof window != 'undefined' ? (
+      window.screen.width <= 1024 ? `translateX(${playerPosition})` : '' 
+    ) : '' }}
+    >
+      <button className={styles.hideButton} onClick={togglePlayerPosition}> {'Esconder >'} </button>
       <header>
         <img src="/playing.svg" alt="Tocando agora" />
         <strong>Tocando agora</strong>

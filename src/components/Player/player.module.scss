@@ -4,6 +4,7 @@
   padding: 3rem 4rem;
   // position: fixed;
   // right: 0;
+  transition: 0.2s;
 
   background-color: var(--purple-500);
   color: var(--white);
@@ -13,6 +14,21 @@
   align-items: center;
   justify-content: space-between;
 
+  position: relative;
+
+  .hideButton {
+    display: none;
+    position: absolute;
+    left: 2rem;
+    top: 1rem;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 1rem;
+    color: var(--white);
+    background: var(--purple-400);
+  }
+  
   header {
     display: flex;
     align-items: center;
@@ -64,7 +80,7 @@
 
   span {
     display: block;
-    margin-top: 1rem;
+    margin: 1rem 0;
     opacity: 0.6;
     line-height: 1.5rem;
   }
@@ -78,7 +94,7 @@
 
   span {
     display: inline-block;
-    width: 4rem;
+    // width: 4rem;
     text-align: center;
   }
 
@@ -132,6 +148,89 @@
 
     &.active:hover:not(:disabled) {
       filter: brightness(0.6) invert(0.35) sepia(1) saturate(3) hue-rotate(100deg);
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .container {
+    position: absolute;
+    transform: translateX(100vw);
+    width: 100vw;
+    // flex: 1;
+    // height: 100%;
+    // left: 100vw;
+
+    .hideButton {
+      display: block;
+    }
+    
+    strong {
+      font-size: 2rem;
+    }
+    
+    .emptyPlayer {
+      height: 50%;
+    }
+
+    footer {
+      span {
+        font-size: 1rem;
+      } 
+    }
+  }
+
+  .currentEpisode {
+    img {
+      height: 70vw;
+    }
+
+    strong {
+      font-size: 2rem;
+    }
+  
+    span {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    header {
+      margin-top: 2rem;
+      
+      strong {
+        font-size: 1.25rem;
+      }
+    }
+
+    .currentEpisode {
+
+      strong {
+        font-size: 1.25rem;
+      }
+    
+      span {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-height: 640px) {
+  .currentEpisode {
+    img {
+      height: 30vh;
+    }
+  }
+}
+
+@media screen and (max-height: 568px) {
+  .currentEpisode {
+    img {
+      height: 20vh;
+      width:90vw;
     }
   }
 }

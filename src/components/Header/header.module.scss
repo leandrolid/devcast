@@ -6,8 +6,20 @@
   padding: 2rem 4rem;
   border-bottom: 1px solid var(--gray-100);
 
-  img {
+  div {
+    height: 6.5rem;
+    width: 100vw;
+    max-height: 10rem;
+    max-width: 15rem;
+    background-image: url('/logo.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
     cursor: pointer;
+
+    img {
+      width: 100%;
+    }
   }
 
   p {
@@ -21,3 +33,25 @@
     text-transform: capitalize;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .container {
+    height: 4.5rem;
+    padding: 1rem 2rem;
+
+    div {
+      max-width: 3rem;
+      background-image: url('/favicon.png');
+    }
+
+    span {
+      display: none;
+    }
+  }
+}
+
+// @media screen and (max-width: 400px) {
+//   .container {
+//     font-size: 87%;
+//   }
+// }

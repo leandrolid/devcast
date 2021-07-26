@@ -1,4 +1,4 @@
-import Image from 'next/image';
+/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 import format from 'date-fns/format';
 import ptBR from 'date-fns/locale/pt-BR';
@@ -12,7 +12,8 @@ export function Header() {
     <header className={styles.container}>
       <Link href="/" passHref>
         <a>
-          <Image width="200px" height="100%" src="/logo.svg" alt="Devcast logo" />
+          <div title="Devcast logo" />
+          {/* <img src="/logo.svg" alt="Devcast logo" /> */}
         </a>
       </Link>
       <p>O melhor para você ouvir. Sempre!</p>

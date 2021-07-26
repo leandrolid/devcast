@@ -2,7 +2,6 @@ import Head from 'next/head';
 import { parseISO, format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
-import { ReactNode } from 'react';
 import { GetStaticProps } from 'next';
 
 import { api } from '../services/api';
@@ -11,6 +10,7 @@ import { LatestEpisodes } from '../components/LatestEpisodes';
 
 import styles from "./home.module.scss";
 import { AllEpisodes } from '../components/AllEpisodes';
+import { usePlayerContext } from '../contexts/PlayerContext';
 
 type EpisodeAPI = {
   id: string,      
@@ -42,15 +42,24 @@ type HomeProps = {
 }; 
 
 export default function Home({allEpisodes, lastestEpisodes}: HomeProps) {
+  const { togglePlayerPositionDefault } = usePlayerContext();
+
   return (
     <>
       <Head>
-        <title>Devcast</title>
+        <title>Devcastr</title>
         <meta name="description" content="Hear your favorite podcasts" />
         <link rel="shortcut icon" href="/favicon.png" type="image/x-png" />
       </Head>
       
       <div className={styles.content}>
+        <button
+        className={styles.hideButton}
+        onClick={() => togglePlayerPositionDefault()}
+        title="Ver player"
+        > 
+          {'<'}
+        </button>
         <LatestEpisodes data={lastestEpisodes} />
         <AllEpisodes data={allEpisodes} />
       </div>

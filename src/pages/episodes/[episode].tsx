@@ -1,17 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from 'next/image';
+import Link from 'next/link';
+import Head from 'next/head';
 import { parseISO, format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import Link from 'next/link';
 
 import { api } from '../../services/api';
 import { convertDurationToTimeString } from '../../utils/convertDurationToTimeString';
+import { usePlayerContext } from '../../contexts/PlayerContext';
 
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { ReactNode } from 'react';
 
 import styles from './episode.module.scss';
-import { usePlayerContext } from '../../contexts/PlayerContext';
 
 type Episode = {
   id: string,      
@@ -49,40 +50,45 @@ export default function CurrentEpisode({episode}: CurrentEpisodeProps) {
   const { play } = usePlayerContext();
 
   return(
-    <section className={styles.main}>
-      <div className={styles.container}>
-        <div className={styles.thumbnail}>
-          <Link href="/" passHref>
-            <button type="button">
-              <img src="/arrow-left.svg" alt="Voltar" />
+    <>
+      <Head>
+        <title> Devcastr | {episode.title}</title>
+      </Head>
+      <section className={styles.main}>
+        <div className={styles.container}>
+          <div className={styles.thumbnail}>
+            <Link href="/" passHref>
+              <button type="button">
+                <img src="/arrow-left.svg" alt="Voltar" />
+              </button>
+            </Link>
+
+            <Image 
+            width={700}
+            height={160}
+            src={episode.thumbnail}
+            alt={episode.title}
+            objectFit="cover" />
+
+            <button type="button" onClick={() => play([episode], 0)}>
+              <img src="/play.svg" alt="Tocar atual" />
             </button>
-          </Link>
+          </div>
 
-          <Image 
-          width={700}
-          height={160}
-          src={episode.thumbnail}
-          alt={episode.title}
-          objectFit="cover" />
+          <header>
+            <h1>{episode.title}</h1>
+            <span className={styles.members}>{episode.members}</span>
+            <span>{episode.publishedAt}</span>
+            <span>{episode.durationAsString}</span>
+          </header>
 
-          <button type="button" onClick={() => play([episode], 0)}>
-            <img src="/play.svg" alt="Tocar atual" />
-          </button>
+          <div className={styles.description} dangerouslySetInnerHTML={{
+            __html: episode.description
+          }}
+          />
         </div>
-
-        <header>
-          <h1>{episode.title}</h1>
-          <span className={styles.members}>{episode.members}</span>
-          <span>{episode.publishedAt}</span>
-          <span>{episode.durationAsString}</span>
-        </header>
-
-        <div className={styles.description} dangerouslySetInnerHTML={{
-          __html: episode.description
-        }}
-        />
-      </div>
-    </section>
+      </section>
+    </>
 
   );
 }

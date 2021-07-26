@@ -22,7 +22,7 @@ type AllEpisodesProps = {
 }; 
 
 export function AllEpisodes({data}: AllEpisodesProps) {
-  const { play } = usePlayerContext();  
+  const { play, togglePlayerPositionDefault } = usePlayerContext();  
 
   return(
     <section className={styles.container}>
@@ -31,10 +31,11 @@ export function AllEpisodes({data}: AllEpisodesProps) {
       <table cellSpacing={0}>
         <thead>
           <tr>
-            <th colSpan={2}>Podcast</th>
-            <th>Integrantes</th>
+            <th>Capa</th>
+            <th className={styles.title}>Podcast</th>
+            <th className={styles.members} title="Integrantes">Integrantes</th>
             <th>Data</th>
-            <th>Duração</th>
+            <th className={styles.duration}>Duração</th>
             <th>Tocar</th>
           </tr>
         </thead>
@@ -54,13 +55,13 @@ export function AllEpisodes({data}: AllEpisodesProps) {
                 />
               </td>
 
-              <td>
-                <Link href={`/episodes/${episode.id}`} >
-                  <a>{episode.title}</a>
+              <td className={styles.title}>
+                <Link href={`/episodes/${episode.id}`}>
+                  <a title={episode.title}>{episode.title}</a>
                 </Link>
               </td>
 
-              <td>
+              <td className={styles.members} title={episode.members}>
                 {episode.members}
               </td>
 
@@ -68,12 +69,15 @@ export function AllEpisodes({data}: AllEpisodesProps) {
                 {episode.publishedAt}
               </td>
 
-              <td >
+              <td className={styles.duration}>
                 {episode.durationAsString}
               </td>
 
               <td>
-              <button type="button" onClick={() => play(data, index)}>
+              <button type="button" onClick={() => { 
+                play(data, index);
+                togglePlayerPositionDefault();
+              }}>
                 <img src="/play-green.svg" alt="Tocar episódio" />
               </button>
               </td>

@@ -22,7 +22,7 @@ type LatestEpisodesProps = {
 }; 
 
 export function LatestEpisodes({data}: LatestEpisodesProps) {
-  const { play } = usePlayerContext();
+  const { play, togglePlayerPositionDefault } = usePlayerContext();
 
   return(
     <section className={styles.container}>
@@ -47,7 +47,10 @@ export function LatestEpisodes({data}: LatestEpisodesProps) {
                 <span>{episode.durationAsString}</span>
               </div>
 
-              <button type="button" onClick={() => play(data, index)}>
+              <button type="button" onClick={() => {
+                play(data, index);
+                togglePlayerPositionDefault();
+              }}>
                 <img src="/play-green.svg" alt="Tocar episódio" />
               </button>
             </li>

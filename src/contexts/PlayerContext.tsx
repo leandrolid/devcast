@@ -20,12 +20,15 @@ type PlayserContextData = {
   currentEpisodeIndex: number,
   isPlaying: boolean,
   isShuffling: boolean,
+  playerPosition: string,
   play: (episodeList: Episode[], index: number) => void,
   handlePlayNext: () => void,
   handPlayPrevious: () => void,
   togglePlayButton: () => void,
   togglePlayingState: (value: boolean) => void,
   toggleShuffleState: () => void,
+  togglePlayerPosition: () => void,
+  togglePlayerPositionDefault: () => void,
 }
 
 export const PlayerContext = createContext({} as PlayserContextData);
@@ -35,11 +38,21 @@ export function PlayerContextProvider({ children }: PlayerProviderProps) {
   const [ currentEpisodeIndex, setCurrentEpisodeIndex ] = useState(0);
   const [ isPlaying, setIsPlaying ] = useState(false);
   const [ isShuffling, setIsShuffling ] = useState(false);
+  const [ playerPosition, setPlayerPosition ] = useState('100vw');
 
   function play(episodeList, index) {
     setEpisodes(episodeList);
     setCurrentEpisodeIndex(index);
     setIsPlaying(true);
+  }
+
+  function togglePlayerPosition() {
+    setPlayerPosition('100vw');
+  }
+  
+  function togglePlayerPositionDefault() {
+    setPlayerPosition('0');
+    
   }
 
   function togglePlayButton() {
@@ -73,12 +86,15 @@ export function PlayerContextProvider({ children }: PlayerProviderProps) {
     currentEpisodeIndex,
     isPlaying,
     isShuffling,
+    playerPosition,
     play,
     handlePlayNext,
     handPlayPrevious,
     togglePlayButton,
     togglePlayingState,
-    toggleShuffleState
+    toggleShuffleState,
+    togglePlayerPosition,
+    togglePlayerPositionDefault
   }}
   >
     {children}

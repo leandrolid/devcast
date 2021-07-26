@@ -8,7 +8,8 @@
       text-transform: uppercase;
       color: var(--gray-200);
   
-      th:last-child {
+      th:last-child,
+      th:first-child {
         opacity: 0;
       }
     }
@@ -77,4 +78,35 @@
   }
   
 
+}
+
+@media screen and (max-width: 600px) {
+  .members, .title {
+    max-width: 10rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .members {
+    max-width: 5rem;
+  }
+
+  .duration {
+    display: none;
+  }
+  
+  .container {
+    th:last-child,
+    th:first-child,
+    td:first-child {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .members {
+    display: none;
+  }
 }
