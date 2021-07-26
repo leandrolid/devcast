@@ -69,7 +69,12 @@ export function PlayerContextProvider({ children }: PlayerProviderProps) {
   }
 
   function handPlayPrevious() {
-    if (currentEpisodeIndex > 0) setCurrentEpisodeIndex(currentEpisodeIndex - 1);
+    if (isShuffling) {
+      const index = Math.floor(Math.random() * ( episodes.length - 1 ));
+      setCurrentEpisodeIndex(index);
+    } else if (currentEpisodeIndex > 0) {
+      setCurrentEpisodeIndex(currentEpisodeIndex - 1);
+    }
   }
 
   function togglePlayingState(value:boolean) {

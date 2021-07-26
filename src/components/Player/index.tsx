@@ -75,6 +75,9 @@ export function Player() {
     audioRef.current.currentTime = amount;
     setProgress(amount);
   }
+
+  const equalSize = currentEpisodeIndex === (episodes.length - 1);
+  const smallerSize = (currentEpisodeIndex -1) < 0;  
   
   return (
     <div className={styles.container}
@@ -106,7 +109,6 @@ export function Player() {
           <strong>Selecione um podcast para ouvir</strong>
         </div>
       )}
-      
 
       <footer className={ !episode ? styles.empty : ''}>
         <div className={styles.progress}>
@@ -152,8 +154,8 @@ export function Player() {
           </button>
           <button
           type="button"
-          disabled={ !episode || (currentEpisodeIndex -1) < 0 }
-          style={(currentEpisodeIndex -1) < 0 && episode ? { opacity: 0.5 } : {}}
+          style={ smallerSize && !isShuffling ? { opacity: 0.5 } : {}}
+          disabled={ (!episode || smallerSize) && !isShuffling }
           onClick={() => handPlayPrevious()}
           >
             <img src="/play-previous.svg" alt="Tocar anterior"/>
@@ -179,8 +181,8 @@ export function Player() {
           ) }
           <button
           type="button"
-          style={currentEpisodeIndex === (episodes.length - 1) ? { opacity: 0.5 } : {}}
-          disabled={ !episode || currentEpisodeIndex === (episodes.length - 1) }
+          style={ equalSize && !isShuffling ? { opacity: 0.5 } : {}}
+          disabled={ (!episode || equalSize) && !isShuffling}
           onClick={() => handlePlayNext()}
           >
             <img src="/play-next.svg" alt="Tocar próxima"
