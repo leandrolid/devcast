@@ -35,7 +35,7 @@ export const PlayerContext = createContext({} as PlayserContextData);
 
 export function PlayerContextProvider({ children }: PlayerProviderProps) {
   const [ episodes, setEpisodes ] = useState([]);
-  const [ currentEpisodeIndex, setCurrentEpisodeIndex ] = useState(0);
+  const [ currentEpisodeIndex, setCurrentEpisodeIndex ] = useState(-1);
   const [ isPlaying, setIsPlaying ] = useState(false);
   const [ isShuffling, setIsShuffling ] = useState(false);
   const [ playerPosition, setPlayerPosition ] = useState('100vw');

@@ -60,7 +60,7 @@ export default function Home({allEpisodes, lastestEpisodes}: HomeProps) {
         > 
           {'<'}
         </button>
-        <LatestEpisodes data={lastestEpisodes} />
+        <LatestEpisodes data={[lastestEpisodes, allEpisodes]} />
         <AllEpisodes data={allEpisodes} />
       </div>
 

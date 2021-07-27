@@ -18,17 +18,18 @@ type Episode = {
 }
 
 type LatestEpisodesProps = {
-  data: Episode[],
+  data: [ Episode[], Episode[]] 
 }; 
 
 export function LatestEpisodes({data}: LatestEpisodesProps) {
   const { play, togglePlayerPositionDefault } = usePlayerContext();
+  const [ latestEpisodes, allEpisodes ] = data;
 
   return(
     <section className={styles.container}>
       <h2>Últimos Lançamentos</h2>
       <ul>
-        {data.map((episode, index) => {          
+        {latestEpisodes.map((episode, index) => {          
           return (
             <li key={episode.id}>
               <Image
@@ -48,7 +49,7 @@ export function LatestEpisodes({data}: LatestEpisodesProps) {
               </div>
 
               <button type="button" onClick={() => {
-                play(data, index);
+                play(allEpisodes, index);
                 togglePlayerPositionDefault();
               }}>
                 <img src="/play-green.svg" alt="Tocar episódio" />

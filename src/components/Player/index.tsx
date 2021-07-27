@@ -76,8 +76,18 @@ export function Player() {
     setProgress(amount);
   }
 
-  const equalSize = currentEpisodeIndex === (episodes.length - 1);
-  const smallerSize = (currentEpisodeIndex -1) < 0;  
+  const [ equalSize, setEqual ] = useState(false);
+  const [ smallerSize, setSmallerSize ] = useState(false);
+  
+  useEffect(() => {
+    if ( typeof currentEpisodeIndex === 'number' ){    
+      const equal = currentEpisodeIndex === (episodes.length - 1);
+      setEqual(equal);
+  
+      const smaller = (currentEpisodeIndex -1) < 0;
+      setSmallerSize(smaller);
+    }
+  },[currentEpisodeIndex, episodes.length]);
   
   return (
     <div className={styles.container}
