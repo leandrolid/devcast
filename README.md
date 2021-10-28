@@ -15,7 +15,7 @@
 
 [Preview](#preview)
 
-[Sobre o Devcastr](#sobre-o-pausecoding)
+[Sobre o Devcastr](#sobre-o-devcastr)
 
 [Tecnologias](#tecnologias)
 
